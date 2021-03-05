@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 import time
+from datetime import datetime
+
 from ltr559 import LTR559
 from bme280 import BME280
 
@@ -9,6 +11,8 @@ bme = BME280()
 
 try:
     while True:
+        today = datetime.now().strftime('%Y-%m-%d %H:%S')
+
         ltr.update_sensor()
 
         # https://en.wikipedia.org/wiki/Lux
@@ -43,6 +47,7 @@ try:
         hum = bme.get_humidity()
     
         readings_message = f'''
+               {today}
                Temperature:\t{temp:.1f} C
                Pressure:\t{pres:.2f} hPa
                Humidity:\t{hum:.0f}%
