@@ -11,21 +11,7 @@ ltr = LTR559()
 bme = BME280()
 
 header = ['datetime', 'light', 'proximity', 'temperature', 'humidity']
-data_file = 'data/room.csv'
-
-# Compensating for CPU temp
-# TODO: Fix this
-def get_cpu_temperature():
-    with open("/sys/class/thermal/thermal_zone0/temp", "r") as f:
-        temp = f.read()
-        temp = int(temp) / 1000.0
-    return temp
-
-def temp_compensate(sensor_temp):
-    # Several temp samples
-    cpu_temps = [get_cpu_temperature()] * 5
-    avg_cpu_temp = sum(cpu_temps) / 5
-    return sensor_temp - avg_cpu_temp
+data_file = 'data/kitchen.csv'
 
 try:
 
