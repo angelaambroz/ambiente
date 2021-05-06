@@ -20,6 +20,7 @@ STANDARD_TOOLS = ["box_select", "pan", "wheel_zoom", "reset", "save"]
 TSERIES_WIDTH = 2
 TSERIES_DEFAULT_ALPHA = 0.8
 
+
 def tseries():
     """Time series plots of sensor reading"""
 

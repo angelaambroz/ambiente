@@ -7,25 +7,25 @@ from datetime import datetime
 from ltr559 import LTR559
 from bme280 import BME280
 
-ltr = LTR559()  
+ltr = LTR559()
 bme = BME280()
 
-header = ['datetime', 'light', 'proximity', 'temperature', 'humidity']
-data_file = 'data/kitchen.csv'
+header = ["datetime", "light", "proximity", "temperature", "humidity"]
+data_file = "data/kitchen.csv"
 
 try:
 
     # Write the header once
-    with open(data_file, 'w') as f:
+    with open(data_file, "w") as f:
         writer = csv.writer(f)
         writer.writerow(header)
 
     while True:
-        f = open(data_file, 'a')
-    
+        f = open(data_file, "a")
+
         writer = csv.writer(f)
 
-        today = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        today = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         ltr.update_sensor()
 
@@ -34,10 +34,10 @@ try:
         # "how much light hits the surface"
         lux = ltr.get_lux()
 
-        # https://github.com/pimoroni/ltr559-python/issues/3 
+        # https://github.com/pimoroni/ltr559-python/issues/3
         # We have no idea what the units are
         # https://optoelectronics.liteon.com/upload/download/DS86-2013-0003/LTR-559ALS-01_DS_V1.pdf
-        # It's a light sensor - it senses reflected light from objects 
+        # It's a light sensor - it senses reflected light from objects
         # https://en.wikipedia.org/wiki/Proximity_sensor
         # https://www.youtube.com/watch?v=QfQ_bL8AeGo
         prox = ltr.get_proximity()
@@ -60,7 +60,9 @@ try:
         # Relative humidity: "expressed as a percentage, indicates a present state of absolute humidity relative to a maximum humidity given the same temperature" (wiki)
         hum = bme.get_humidity()
 
-        writer.writerow([today, f"{lux:.2f}", f"{prox:.2f}", f"{temp:.2f}", f"{hum:.2f}"])
+        writer.writerow(
+            [today, f"{lux:.2f}", f"{prox:.2f}", f"{temp:.2f}", f"{hum:.2f}"]
+        )
 
         time.sleep(60)
         f.close()
